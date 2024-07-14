@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { BsArrowLeftCircle } from 'react-icons/bs'
-import { AiFillPieChart } from 'react-icons/ai'
-import { SiFuturelearn } from 'react-icons/si'
-import { SiOpenaccess } from 'react-icons/si'
+// import { BsArrowLeftCircle } from 'react-icons/bs'
+// import { AiFillPieChart } from 'react-icons/ai'
+// import { SiFuturelearn } from 'react-icons/si'
+// import { SiOpenaccess } from 'react-icons/si'
 import { CgProfile } from 'react-icons/cg'
 import Logo from '../assets/images/logo.png'
 import HamburgerButton from './HamburgerMenuButton/HamburgerButton'
@@ -17,7 +17,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { IoMdCheckboxOutline } from "react-icons/io";
 const Sidebar = () => {
-  const [open, setOpen] = useState(true)
+  const [open] = useState(true)
   const [mobileMenu, setMobileMenu] = useState(false)
   const location = useLocation()
 

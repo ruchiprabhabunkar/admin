@@ -20,6 +20,9 @@ module.exports = {
                 darkGrayishBlue: 'hsl(227, 12%, 61%)',
                 veryDarkBlue: 'hsl(233, 12%, 13%)',
             },
+            backgroundImage: {
+                'bg-image': "url('./assets/images/adminbg-2.jpg')",
+              }
         },
     },
     plugins: [],
