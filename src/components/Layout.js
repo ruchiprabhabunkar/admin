@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
                 
                 <div className='grow w-full '>
                     <Navbar />
-                    <div className='m-5'>{children}</div>
+                    <div className=''>{children}</div>
                 </div>
             </div>
         </>

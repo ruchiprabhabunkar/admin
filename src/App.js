@@ -12,7 +12,7 @@ import LogOut from './pages/LogOut';
 import Login from './pages/Login';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
-
+import EditUserForm from './components/updateuser';
 
 function App() {
     const isLoggedIn = localStorage.getItem("authToken") !== null;
@@ -26,12 +26,13 @@ function App() {
                         <Route path="/myProfile" element={<MyProfile />} />
                         <Route path="/allAdmins" element={<AllAdmins />} />
                         <Route path="/allUsers" element={<AllUsers />} />
+                        <Route path="/" element={<AllUsers />} />
+                        <Route path="/editUser/:id" element={<EditUserForm />}/>
                         <Route path="/createUser" element={<CreateUser />} />
                         <Route path="/createAdmin" element={<CreateAdmin />} />
                         <Route path="/course" element={<Course />} />
                         <Route path="/terms" element={<Terms/>} />
-                        <Route path="/privacy" element={<Privacy />} />
-                        
+                        <Route path="/privacy" element={<Privacy />} />     
                         <Route path="/logOut" element={<LogOut />} />
                         <Route path="*" element={<Navigate to="/dashboard" />} />
                     </Routes>

@@ -1,109 +1,15 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import {useNavigate } from "react-router-dom";
-
-// const AllUsers = () => {
-//   const [users, setUsers] = useState([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchUsers = async () => {
-//       const token = localStorage.getItem("authToken");
-//       if (!token) {
-//         navigate("/login");
-//         return;
-//       }
-
-//       const options = {
-//         headers: {
-//         Authorization: `Bearer ${token}`,
-//         },
-//       };
-      
-//       try {
-//         const response = await axios.get(
-//           "http://157.173.222.27:8080/api/v1/user/get-all",
-//           options
-//         );
-//         setUsers(response.data.users);
-//         console.log(response)
-     
-
-        
-//       } catch (error) {
-//         console.error("Error fetching users:", error);
-//         // Handle error as needed, e.g., show error message to the user
-//       }
-//     };
-
-//     fetchUsers();
-//   }, [navigate]);
-
-//   const handleEditClick = (id) => {
-//     console.log(id)
-//     navigate(`/editUser/${id}`);
-//   };
-
-//   const RemoveUser = () => {
-//    };
-//   return (
-//     <div className="h-[70%] w-full sm:w-[90%]">
-
-    
-//     <div className="relative overflow-x-auto mx-2 ">
-//     <h1 className="text-3xl font-bold mb-3">User</h1>
-//     <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-//       <thead className="text-xs text-gray-700 uppercase   bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-//         <tr>
-//           <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Full Name</th>
-//           <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Email</th>
-//           <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Mobile no</th>
-//           <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Gender</th>
-//           <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Action</th>
-//         </tr>
-//       </thead>
-//       <tbody>
-//         {users.map((data) => (
-//           <tr key={data._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-//             <td className="px-4 py-2 sm:px-6 sm:py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-//               {data.firstname} {data.lastname}
-//             </td>
-//             <td className="px-4 py-2 sm:px-6 sm:py-2">{data.email} {data.totalUsers}</td>
-//             <td className="px-4 py-2 sm:px-6 sm:py-2">{data.phone}</td>
-//             <td className="px-4 py-2 sm:px-6 sm:py-2">{data.gender}</td>
-//             <td className="px-4 py-2 sm:px-6 sm:py-2">
-              
-//               <button type="button" className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-1 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-//                 value={data._id}
-//                 onClick={() => handleEditClick(data._id)}>Edit</button>
-//               <button type="button" class="focus:outline-none text-white bg-[#ED0800] hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1 sm:mx-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-//                value={data._id}
-//                onClick={RemoveUser}
-//               > Remove</button>
-//             </td>
-//           </tr>
-//         ))}
-//       </tbody>
-//     </table>
-//   </div>
-//   </div>
-// );
-// };
-
-
-
-// export default AllUsers
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { FaEdit } from "react-icons/fa";
-import { MdOutlineDeleteForever } from "react-icons/md";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FaEdit } from 'react-icons/fa';
+import { MdOutlineDeleteForever } from 'react-icons/md';
+import { fetchUsers, deleteUser } from '../user/updateuser';
+import { useNavigate } from 'react-router-dom';
 
 const AllUsers = () => {
-  const [users, setUsers] = useState([]);
-  const [checkusers, setCheckUsers] = useState([]);
+  const users = useSelector(state => state.users.users);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1); // current page
-  const recordPage = 10; // records per page
+  const recordPage = 8; // records per page
   const lastIndex = currentPage * recordPage;
   const firstIndex = lastIndex - recordPage;
   const records = users.slice(firstIndex, lastIndex);
@@ -111,89 +17,15 @@ const AllUsers = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        navigate("/login");
-        return;
-      }
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-      const options = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      try {
-        const response = await axios.get(
-          "http://157.173.222.27:8080/api/v1/user/get-all",
-          options
-        );
-        setUsers(response.data.users);
-        console.log(response.data.users);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    const fetchCheckIns = async () => {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
-      const options = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      try {
-        const response = await axios.get(
-          "http://157.173.222.27:8080/api/v1/checkin/all-checkins/668e3f308cd1db3cfcab6f97",
-          options
-        );
-        setCheckUsers(response.data.CheckIns);
-        console.log(response.data.CheckIns);
-      } catch (error) {
-        console.error("Error fetching check-ins:", error);
-      }
-    };
-
-    fetchUsers();
-    fetchCheckIns();
-  }, [navigate]);
-
-  useEffect(() => {
-
-    const checkInCount = {};
-
-    checkusers.forEach((checkin) => {
-      const userId = checkin.user;
-      if (!checkInCount[userId]) {
-        checkInCount[userId] = 0;
-      }
-      checkInCount[userId] += 1;
-    });
-
-    // Update users with check-in counts
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => ({
-        ...user,
-        checkIns: checkInCount[user._id] || 0,
-      }))
-    );
-  }, [checkusers]);
-
-  const handleEditClick = (id) => {
-    console.log(id);
+  const handleEditClick = id => {
     navigate(`/editUser/${id}`);
   };
 
-  const RemoveUser = (id) => {
-    // Implement remove user functionality
-    console.log(`Remove user with id: ${id}`);
+  const handleDeleteClick = id => {
+    dispatch(deleteUser(id));
   };
 
   const nextPage = () => {
@@ -209,11 +41,10 @@ const AllUsers = () => {
   };
 
   return (
-    
-    <div className=" w-full sm:w-[90%]  h-screen">
-      <h1 className="text-3xl font-semibold mb-4 dark:text-white ml-9">Users</h1>
-      <div className="overflow-x-auto sm:mx-10  w-full">
-        <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <div className="w-full sm:w-[90%] h-full py-0">
+      <h1 className="text-3xl font-semibold mb-2 dark:text-white ml-9">Users</h1>
+      <div className="overflow-x-auto sm:mx-10 w-full">
+        <table className="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 h-full">
           <thead className="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-4 py-2 sm:px-6 sm:py-3">Full Name</th>
@@ -226,7 +57,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {records.map((data) => (
+            {records.map(data => (
               <tr key={data._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className="px-4 py-2 sm:px-6 sm:py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {data.firstname} {data.lastname}
@@ -235,7 +66,7 @@ const AllUsers = () => {
                 <td className="px-4 py-2 sm:px-6 sm:py-2">{data.phone}</td>
                 <td className="px-4 py-2 sm:px-6 sm:py-2">{data.checkIns}</td>
                 <td className="px-4 py-2 sm:px-6 sm:py-2">{data.purpose}</td>
-                <td className="px-4 py-2 sm:px-6 sm:py-2">{data.stageAndLevel}</td>
+                <td className="px-4 py-2 sm:px-6 sm:py-2">{data.level}</td>
                 <td className="px-4 py-2 sm:px-6 sm:py-2 flex">
                   <button
                     type="button"
@@ -247,7 +78,7 @@ const AllUsers = () => {
                   <button
                     type="button"
                     className="hover:-translate-y-1 hover:scale-110 hover:text-[#ED0800] duration-300 text-[#ED0800] text-2xl mx-2"
-                    onClick={() => RemoveUser(data._id)}
+                    onClick={() => handleDeleteClick(data._id)}
                   >
                     <MdOutlineDeleteForever />
                   </button>
@@ -256,20 +87,20 @@ const AllUsers = () => {
             ))}
           </tbody>
         </table>
-
-        <div className="flex space-x-5 justify-center mt-4">
+        <div className="flex space-x-5 justify-center my-4 ">
           <button
             onClick={prevPage}
-            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded"
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-500 dark:hover:text-white rounded"
             disabled={currentPage === 1}
           >
             Previous
           </button>
           <button
             onClick={nextPage}
-            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded"
+            className="px-4 py-2 bg-gray-300 dark:bg-gray-500 dark:hover:text-white rounded"
             disabled={currentPage === npage}
-          > Next
+          >
+            Next
           </button>
         </div>
       </div>

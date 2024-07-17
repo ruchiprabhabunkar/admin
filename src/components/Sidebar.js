@@ -23,7 +23,6 @@ const Sidebar = () => {
 
   const Menus = [
     { title: 'Dashboard', path: '/dashboard', src: <IoHomeOutline /> },
-    { title: 'My Profile', path: '/myProfile', src: <CgProfile /> },
     { title: 'All Admins', path: '/allAdmins', src: <FiUsers />},
     { title: 'All Users', path: '/allUsers', src: <AiOutlineUser /> },
     { title: 'Create User', path: '/createUser', src: <FaUserEdit /> },
@@ -51,7 +50,7 @@ const Sidebar = () => {
            {open && (
               <div>
                  <img className='pl-0 rounded-full h-[7rem] w-[7rem] flex mx-auto' src={Logo} alt=''  />
-                  <span className='text-2xl font-medium whitespace-nowrap dark:text-white'>Arvind Kumar</span>
+                  <span className='text-2xl font-medium whitespace-nowrap dark:text-white'>SPIR  Health</span>
               </div>
              
             )}
