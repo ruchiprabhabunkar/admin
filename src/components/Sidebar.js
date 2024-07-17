@@ -52,7 +52,6 @@ const Sidebar = () => {
                  <img className='pl-0 rounded-full h-[7rem] w-[7rem] flex mx-auto' src={Logo} alt=''  />
                   <span className='text-2xl font-medium whitespace-nowrap dark:text-white'>SPIR  Health</span>
               </div>
-             
             )}
           </div>
         </Link>
