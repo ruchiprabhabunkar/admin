@@ -50,7 +50,7 @@ function Dashboard() {
   return (
     
     <div className="bg-gray-100 lg:h-full  w-full   dark:bg-slate-900">
-    <h1>dashboard</h1>
+   
       <main className="h-full">
         <section className="flex flex-col mt-5 ml-2 mr-10 lg:ml-2 lg:mr-2 lg:grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 lg:p-10 lg:mt-5">
           <WidgetItem
@@ -60,6 +60,7 @@ function Dashboard() {
             heading="Users"
             color="rgb(0,115,255)"
           />
+                 
           <WidgetItem
             percent={20}
             amount={false}
